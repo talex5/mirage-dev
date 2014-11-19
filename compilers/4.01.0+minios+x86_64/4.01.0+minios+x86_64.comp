@@ -1,0 +1,24 @@
+opam-version: "1"
+version: "4.01.0"
+src: "http://caml.inria.fr/pub/distrib/ocaml-4.01/ocaml-4.01.0.tar.gz"
+patches:["https://github.com/diml/ocaml/compare/bd7fa181cb64742c3b6cbb8ee13436554eb18cd7...fix-clang-build.diff"]
+build: [
+  ["./configure" "-prefix" prefix
+   "-cc" "gcc -fno-stack-protector -mno-red-zone -DMINIOS -m64"
+   "-no-tk" "-no-graph"
+  ]
+  [make "world"]
+  [make "world.opt"]
+  [make "install"]
+]
+packages: [
+  "base-unix"
+  "base-bigarray"
+  "base-threads"
+]
+env: [
+  [MIRAGE_CFLAGS = "-fno-stack-protector -mno-red-zone -DMINIOS -m64 -fno-builtin -I%{prefix}%/include -D_FORTIFY_SOURCE=0"]
+  [CFLAGS += "-fno-stack-protector -mno-red-zone -DMINIOS -m64 -fno-builtin -I%{prefix}%/include -D_FORTIFY_SOURCE=0"]
+  [LDFLAGS += "-L%{prefix}%/lib"]
+  [CAML_LD_LIBRARY_PATH = "%{lib}%/stublibs"]
+]
