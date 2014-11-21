@@ -7,6 +7,6 @@ build: [
 ]
 remove: [["ocamlfind" "remove" "zarith"]]
 depends: [
-  "conf-gmp"
+  "gmp"
   "ocamlfind"
 ]
