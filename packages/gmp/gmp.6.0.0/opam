@@ -4,6 +4,7 @@ version: "6.0.0"
 maintainer: "Thomas Leonard <talex5@gmail.com>"
 homepage: "https://gmplib.org/"
 license: "GNU LGPL v3 and GNU GPL v2"
+patches: ["gmp-6a.diff"]
 build: [
   ["sh" "-c" "./configure --prefix=%{prefix}% CFLAGS=\"$MIRAGE_CFLAGS -O2 -pedantic -fomit-frame-pointer -fno-builtin -D_FORTIFY_SOURCE=0\""]
   [make]
